@@ -1,0 +1,19 @@
+#RULES
+# _group_name
+# @file_name
+# "phrase"
+{RULE:[_Prep.loc,@Location_big.np.loc],RULE_PERCENT=10,LOC_PERCENT=20}
+{RULE:[_Prep.gen,@Location_big.np.gen],RULE_PERCENT=10,LOC_PERCENT=20}
+{RULE:[_Prep.nom,@Location_big.np.nom],RULE_PERCENT=10,LOC_PERCENT=20}
+{RULE:[_Prep.inst,@Location_big.np.inst],RULE_PERCENT=10,LOC_PERCENT=20}
+#{RULE:[w,@Location_big.np.loc,i okolicy],RULE_PERCENT=10,LOC_PERCENT=20}
+{RULE:[w,@Location_big.np.loc,i okolicy],RULE_PERCENT=10,LOC_PERCENT=20}
+
+#GROUPS
+{GROUP:Prep.nom,PHRASES:[w lokalizacji,w mieście]}
+{GROUP:Prep.gen,PHRASES:[najbliżej,koło,gdzieś na terenie,na terenie,na terytorium,najchętniej w okolicach,okolice,najlepiej w okolicach,najlepiej w okolicy,najlepiej w południowej części,w centrum,rejon,do,bliżej]}
+#{GROUP:Prep.dat,PHRASES:[w południowo-wschodniej i centralnej]}
+#{GROUP:Prep.acc,PHRASES:[]}
+{GROUP:Prep.inst,PHRASES:[poza]}
+{GROUP:Prep.loc,PHRASES:[najchętniej w,najlepiej w,w,najlepiej gdzieś w,na lokalizacji w,w lokalizacji w,przy]}
+#{GROUP:Test,PHRASES:[Warszawie,Krakowie,Sochaczewie,Gdańsku]}
