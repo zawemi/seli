@@ -2,6 +2,8 @@ import os
 import os.path
 from numpy import random
 import re
+import csv
+import pandas as pd
 
 #data_directories = ["lexemes/data/fixed", "lexemes/data/inflected", "lexemes/data/base", "generated_phrases"]
 data_directories = ["lexemes/data/inflected-beauty", "lexemes/data/inflected-base","lexemes/data/beauty"]
@@ -10,6 +12,8 @@ output_file = "./Service.tab"
 output_file_sample = "./Service_sample.tab"
 final = []
 consonants = ["b", "c", "ć", "d", "f", "g", "h", "j", "k", "l", "ł", "m", "n", "p", "r", "s", "t", "w", "z", "ż", "ź"]
+beauty_attributes_csv = "/home/emilia/PJWSTK/selidor/scrpt/seli/service/beauty_attributes-2021-01-22.csv"
+beauty_attributes_excel = "/home/emilia/PJWSTK/selidor/scrpt/seli/service/beauty_attributes-2021-01-22.xlsx"
 
 class Phrases(object):
     def find_file_path_old(self, file_name):
@@ -181,18 +185,37 @@ class Location(Phrases):
 class Service(Phrases):
     print("Service")
 
+    def read_beauty_attributes_csv(self, csv_path):
+        with open(csv_path, 'rt') as csvbeauty:
+            data_beauty = csv.reader(csvbeauty)
+            for row in data_beauty:
+                print(row)
+
+    def read_beauty_attributes_excel(self, excel_path):
+        beauty_attributes_df = pd.read_excel(excel_path, index_col=None, sheet_name="Uniwer.ista usług-beauty now", skiprows=1, header=0, engine="openpyxl") 
+        beauty_attributes_filled_df = self.fill_blank_categories( beauty_attributes_df)
+        print(beauty_attributes_filled_df)
+        return beauty_attributes_filled_df
+
+    def fill_blank_categories(self, df):
+        df[['Branża', 'Kategoria', 'Usługa1', 'Id1']] = df[['Branża', 'Kategoria', 'Usługa1', 'Id1']].fillna(method='ffill')
+        return(df)
+
+
+
 #loc1 = Location()
 #for rule in loc1.read_rules():
 #    data = loc1.apply_rule(rule)
 #    loc1.write_to_file(data)
 #    loc1.write_to_sample_file(data)
 
-serv1 = Service()
-for rule in serv1.read_rules():
-    print("RULE: ",rule)
-    data = serv1.apply_rule(rule)
-    serv1.write_to_file(data)
-    serv1.write_to_sample_file(data)
+#serv1 = Service()
+#for rule in serv1.read_rules():
+#    print("RULE: ",rule)
+#    data = serv1.apply_rule(rule)
+#    serv1.write_to_file(data)
+#    serv1.write_to_sample_file(data)
 
-
+serv2 = Service()
+serv2.read_beauty_attributes_excel(beauty_attributes_excel)
 
